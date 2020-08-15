@@ -10,37 +10,52 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 
+
 class PinsController extends AbstractController
 {
 
     /**
-     * @Route("/", name="app_home")
+     * @Route("/", name="app_home", methods="GET")
      */
     public function index(PinRepository $repo): Response
-    {   
+    {
         return $this->render('pins/index.html.twig', ['pins' => $repo->findAll()]);
     }
 
 
     /**
-     * @Route("/pins/create", name="app_pins_create", methods="GET|POST"))
+     * @Route("/pins/{id}")
+     */
+    public function show(Pin $pin): Response
+    {
+        return $this->render('pins/show.html.twig', compact('pin'));
+    }
+
+
+    /**
+     * @Route("/pins/create", priority=10, name="app_pins_create", methods="GET|POST"))
      */
     public function create(Request $request, EntityManagerInterface $em): Response
-    {   
-        if($request->isMethod('POST')){
-            $data = $request->request->all();
+    {
+        $pin = new Pin;
 
-            if ($this->isCsrfTokenValid('pins_create', $data['_token'])) {
-                $pins = new Pin;
-                $pins->setTitle($data['title']);
-                $pins->setDescription($data['description']);
-                $em->persist($pins);
-                $em->flush();
-            }
+        $form = $this->createFormBuilder($pin)
+            ->add('title', null, ['attr' => ['class' => 'form-control', 'autofocus' => true]])
+            ->add('description', null, ['attr' => ['class' => 'form-control']])
+            ->getForm();
+        ;
 
-            return $this->redirectToRoute('app_home');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($pin);
+            $em->flush();
+
+            return $this->redirectToRoute('app_pins_show', ['id' => $pin->getId()]);
         }
 
-        return $this->render('pins/create.html.twig');
+        return $this->render('pins/create.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

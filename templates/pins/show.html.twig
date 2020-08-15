@@ -9,22 +9,15 @@
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 
-		<title>Pins</title>
+		<title>Pin</title>
 	</head>
 	<body>
-		<h1>All Pins</h1>
+		<h1>Pin</h1>
+        
+        <h2>{{ pin.title }}</h2>
+        <p>{{ pin.description }}</p> 
 
-		<a href="{{ path('app_pins_create') }}">Create Pin</a>
-
-		{% for pin in pins %}
-			<article>
-				<h1><a href="{{ url('app_pins_show', {id: pin.id}) }}">{{ pin.title }}</a></h1>
-				<p>{{ pin.description}}</p>
-			</article>
-		{% else %}
-			<p>Sorry, no pins found !</p>
-		{% endfor %}
-
+        		<a href="{{ path('app_home') }}">Back</a>
 
 		<!-- Optional JavaScript -->
 		<!-- Popper.js first, then Bootstrap JS -->
