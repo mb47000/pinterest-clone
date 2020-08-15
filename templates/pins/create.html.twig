@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+
+		<title>Pins</title>
+	</head>
+	<body>
+
+		<div class="container my-3">
+			<h1 class="text-center">Create Pin</h1>
+
+			<div class="d-flex justify-content-center">
+
+				<form class="bg-info bg-gradient rounded p-3 text-white text-center" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token('pins_create') }}">
+					<div class="my-3">
+						<label for="title" class="form-label">Titre</label>
+						<input type="text" class="form-control" id="title" name="title">
+					</div>
+					<div class="mb-3">
+						<label for="description" class="form-label">Description</label>
+						<textarea class="form-control" id="description" name="description" rows="3"></textarea>
+					</div>
+                    <div class="mb-3">
+						<input class="btn btn-success form-control" type="submit" value="Create Pin"></input>
+					</div>
+				</form>
+
+			</div>
+		<!-- Optional JavaScript -->
+		<!-- Popper.js first, then Bootstrap JS -->
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+	</body>
+</html>
